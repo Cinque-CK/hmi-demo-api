@@ -1,0 +1,38 @@
+{
+  "name": "hmi-demo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cinque-CK/hmi-demo-api.git"
+  },
+  "author": "Cinque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cinque-CK/hmi-demo-api/issues"
+  },
+  "homepage": "https://github.com/Cinque-CK/hmi-demo-api#readme",
+  "dependencies": {
+    "@octokit/rest": "^16.5.0",
+    "archiver": "^3.0.0",
+    "koa": "^2.6.2",
+    "koa-body": "^4.0.6",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "ora": "^3.0.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "shelljs": "^0.8.3",
+    "shortid": "^2.2.14",
+    "string": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
