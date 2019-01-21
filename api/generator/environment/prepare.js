@@ -17,6 +17,7 @@ const util = require('util')
 async function _prepare (content, rootDir) {
   const tmpDir = path.resolve(rootDir, 'tmp')
   const targetDir = path.resolve(tmpDir, content.id)
+  const originPrjDir = path.resolve(rootDir, 'vue-template');
 
   try {
     if (!shell.test('-e', tmpDir)) {
@@ -28,19 +29,21 @@ async function _prepare (content, rootDir) {
     }
     await shell.mkdir('-p', targetDir)
 
+    // 直接拷贝，规避网络不好的情况
+    await shell.cp('-R', originPrjDir+'/*', targetDir);
   } catch (e) {
     console.error('\n> Crap, something crashed during the folder creation...\n' + e)
     process.exit(1)
   }
 
-  let repo = 'https://github.com/vuegg/vuegg-scaffold.git'
+  // let  = 'https://github.com/vuegg/vuegg-scaffold.git'
 
-  try {
-    const asyncExec = util.promisify(shell.exec)
-    await asyncExec('git clone '.concat(repo).concat(' ').concat(targetDir), {async:true})
-  } catch (e) {
-    console.error('\n> Ups! Could not complete the scaffolding...\n' + e)
-  }
+  // try {
+  //   const asyncExec = util.promisify(shell.exec)
+  //   await asyncExec('git clone '.concat(repo).concat(' ').concat(targetDir), {async:true})
+  // } catch (e) {
+  //   console.error('\n> Ups! Could not complete the scaffolding...\n' + e)
+  // }
 
   return targetDir
 }

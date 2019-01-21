@@ -3,6 +3,8 @@ const path = require('path')
 
 const Koa = require('koa')
 const body = require('koa-body')
+const cors = require('koa2-cors');
+
 const logger = require('koa-logger')
 // const historyFallback = require('koa2-history-api-fallback')
 const router = require('koa-router')({ prefix: '/api' })
@@ -24,6 +26,7 @@ router.get('/project', getVueggProject)
 router.post('/generate', generate)
 
 // Middleware
+app.use(cors())
 app.use(body())
 app.use(logger())
 // app.use(historyFallback())
