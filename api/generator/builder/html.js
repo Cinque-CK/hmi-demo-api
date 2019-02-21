@@ -39,9 +39,18 @@ function _htmlBuilder (el, level) {
 
   let genHtml = "\n" + S(' ').times((level)*2).s + S(elDef).wrapHTML(elTag, elProps).replaceAll('="true"', '').s
 
-  return isSelfClosing(elTag)
-    ? S(genHtml).replaceAll('></'.concat(elTag).concat('>'), '/>')
-    : genHtml
+  // Modified by chenzhe
+  if(isSelfClosing(elTag)){
+    return S(genHtml).replaceAll('></'.concat(elTag).concat('>'), '/>')
+  }else {
+    if(el.jump){
+      return S(genHtml).replaceAll('<'.concat(elTag), `<${elTag} @click="$router.push({name:\'${el.jump}\'})"`).s
+    }
+    return genHtml;
+  }
+  // return isSelfClosing(elTag)
+  //   ? S(genHtml).replaceAll('></'.concat(elTag).concat('>'), '/>')
+  //   : genHtml
 }
 
 module.exports = _htmlBuilder

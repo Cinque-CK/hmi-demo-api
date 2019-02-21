@@ -13,7 +13,7 @@ const cssBuilder = require('./css')
  * @constructor
  *
  * @param {object} file : Definition of vue file to be generated
- * @param {object} componentRefs : Array of global componentReferences used in the project
+ * @param {object} componentRefs : Arr ay of global componentReferences used in the project
  * @param {string} targetDir : Folder to host the generated project for the given content
  */
 async function _vueBuilder (file, componentRefs, targetDir) {
@@ -73,6 +73,7 @@ async function _vueBuilder (file, componentRefs, targetDir) {
   shell.sed('-i', '{{COMPONENTS_IMPORTS}}', imports, targetFile)
   shell.sed('-i', '{{COMPONENTS_DECLARATIONS}}', declarations, targetFile)
   shell.sed('-i', '{{VUEGG_STYLES}}', styles, targetFile)
+  shell.sed('-i', '{{VUEGG_JUMP}}', file.jump, targetFile)
 }
 
 module.exports = _vueBuilder
