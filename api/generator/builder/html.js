@@ -39,7 +39,7 @@ function _htmlBuilder (el, level) {
 
   let genHtml = "\n" + S(' ').times((level)*2).s + S(elDef).wrapHTML(elTag, elProps).replaceAll('="true"', '').s
 
-  // Modified by chenzhe
+  // Modified by chenzhe start
   if(isSelfClosing(elTag)){
     return S(genHtml).replaceAll('></'.concat(elTag).concat('>'), '/>')
   }else {
@@ -51,6 +51,7 @@ function _htmlBuilder (el, level) {
   // return isSelfClosing(elTag)
   //   ? S(genHtml).replaceAll('></'.concat(elTag).concat('>'), '/>')
   //   : genHtml
+  // Modified by chenzhe end
 }
 
 module.exports = _htmlBuilder

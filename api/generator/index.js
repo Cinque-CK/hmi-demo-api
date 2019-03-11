@@ -33,9 +33,15 @@ async function _generator (content, rootDir) {
 
   try {
     spinner.start('> Building pages/components (' + content.title + ')')
-    for (const page of content.pages) {
-      await vueBuilder(page, content.components, targetDir)
-    }
+    // Modified by chenzhe start
+    // for (const page of content.pages) {
+    //   await vueBuilder(page, content.components, targetDir)
+    // }
+    eachTree(content.pages,async function (node,deep) {
+        await vueBuilder(node, content.components, targetDir)
+    },'subPages',0)
+    // Modified by chenzhe end
+
     spinner.succeed()
   } catch (e) {
     spinner.fail('> Ups! Pages/components generation failed...\n' + e)
@@ -80,5 +86,25 @@ async function _generator (content, rootDir) {
 
   return zippedProject
 }
-
+/**
+ * 递归法遍历树
+ * @param jsontree 树数据
+ * @param callback 遍历到每个节点要执行的回调方法
+ * @param deep 每个节点的深度值
+ */
+var eachTree = function (jsontree, callback, prop, deep = 0) {
+  if ((typeof jsontree == 'object') && (jsontree.constructor == Object.prototype.constructor)) {
+    var arrey = [];
+    arrey.push(jsontree);
+  } else arrey = jsontree;
+  for (var i = 0; i < arrey.length; i++) {
+    var jn = arrey[i];
+    // 找到节点,执行相应代码
+    if (callback) callback(jn, deep);
+    // 遍历节点,执行相应代码
+    if (jn[prop] && jn[prop].length > 0) {
+      eachTree(jn[prop], callback, prop, deep + 1);
+    }
+  }
+};
 module.exports = _generator
